@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     
     #third party apps
     'django_countries',
+    'treebeard',
 
     #Own apps
     'applications.person',
