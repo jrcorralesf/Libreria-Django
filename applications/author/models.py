@@ -10,6 +10,7 @@ class AuthorModel(GeneralModel):
     last_name = models.CharField(max_length=50)
     nationality = CountryField(blank_label='(seleccione un país)')
     birthday = models.DateField(auto_now=False, auto_now_add=False)
+    photo = models.ImageField(upload_to='fotos', null=True, blank=True)
     class Meta:
         verbose_name = 'Autor'
         verbose_name_plural = 'Autores'

@@ -21,7 +21,7 @@ class BookModel(GeneralModel):
     resume = models.TextField(help_text="Resumen", null=True, blank=True)
     publication_date = models.DateField(auto_now=False, auto_now_add=False)
     authors = models.ManyToManyField(AuthorModel)
-    cover_page = models.ImageField(upload_to='portadas')
+    cover_page = models.ImageField(upload_to='portadas', null=True, blank=True)
     category=models.ForeignKey('book.CategoryModel',related_name='book_categ', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
