@@ -2,8 +2,8 @@
 from django.db import models
 from treebeard.mp_tree import MP_Node
 
-from library.applications.utils.base_model import GeneralModel
-from library.applications.author.models import AuthorModel
+from applications.utils.base_model import GeneralModel
+from applications.author.models import AuthorModel
 
 class CategoryModel(GeneralModel, MP_Node):
     name = models.CharField(max_length=150)

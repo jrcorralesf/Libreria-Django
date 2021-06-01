@@ -1,7 +1,7 @@
 from django.db import models
 
-from library.applications.utils.base_model import GeneralModel
-from library.applications.book.models import BookModel
+from applications.utils.base_model import GeneralModel
+from applications.book.models import BookModel
 class PersonModel(GeneralModel):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

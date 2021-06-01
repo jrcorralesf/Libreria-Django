@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'applications.author',
     'applications.book',
     'applications.home_test',
+    'applications.utils',
 ]
 
 MIDDLEWARE = [
