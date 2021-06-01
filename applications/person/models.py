@@ -7,7 +7,7 @@ class PersonModel(GeneralModel):
     last_name = models.CharField(max_length=50)
     nit = models.SmallIntegerField()
     birthday = models.DateField(auto_now=False, auto_now_add=False)
-    photo = models.ImageField(upload_to='fotos', null=True, blank=True)
+    photo = models.ImageField(upload_to='foto_lectores', null=True, blank=True)
     class Meta:
         verbose_name = 'Lector'
         verbose_name_plural = 'Lectores'

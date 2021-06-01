@@ -4,7 +4,6 @@ from django_countries.fields import CountryField
 
 from applications.utils.base_model import GeneralModel
 
-
 class AuthorModel(GeneralModel):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
