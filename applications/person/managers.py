@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.db.models.aggregates import Count
 
 class PersonManager(models.Manager):
     
@@ -8,5 +9,12 @@ class PersonManager(models.Manager):
         return queryset 
 
 class LoanManager(models.Manager):
-    pass
+    
+    #agrupa la búsqueda en un diccionario, seleccionando los libros por separado evitando que se agrupen por id del prestamo
+    def count_books_loan(self):
+        result=self.values('book').annotate(total=Count('book'), title='book__title')
+        for element in result:
+            print('---------')
+            print(element, element['total'])
+        return result
     

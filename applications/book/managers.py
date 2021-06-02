@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.db.models.aggregates import Count
 
 class BookManager(models.Manager):
     
@@ -11,6 +12,13 @@ class BookManager(models.Manager):
         queryset=self.filter(category__name__icontains=kword)
         return queryset 
 
+    #muestra la cantidad de prestamos de cada libro
+    def count_books_loan(self):
+        result=self.annotate(total=Count('book_loan'))
+        for element in result:
+            print('---------')
+            print(element, element.total)
+        return result
 
 class CategoryManager(models.Manager):
     
