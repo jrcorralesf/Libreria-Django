@@ -5,11 +5,14 @@ from treebeard.mp_tree import MP_Node
 
 from applications.utils.base_model import GeneralModel
 from applications.author.models import AuthorModel
+from .managers import BookManager, CategoryManager
 
 class CategoryModel(MP_Node, GeneralModel):
     name = models.CharField(max_length=150)
     description = models.TextField(help_text="Descripción corta", null=True, blank=True)
     parent_category = models.ForeignKey('self', related_name='related_categ', blank=True, null=True , on_delete=CASCADE)
+    
+    objects=CategoryManager()
     class Meta:
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'
@@ -26,6 +29,7 @@ class BookModel(GeneralModel):
     cover_page = models.ImageField(upload_to='portadas', null=True, blank=True)
     category=models.ForeignKey('book.CategoryModel',related_name='book_categ', on_delete=models.CASCADE, null=True, blank=True)
 
+    objects = BookManager()
     class Meta:
         verbose_name = 'Libro'
         verbose_name_plural = 'Libros'

@@ -13,15 +13,15 @@ class CategoryCreateView(CreateView):
     
     def form_valid(self,form):
         parent_category=form.cleaned_data['parent_category']
-        print(parent_category)
+        #print(parent_category)
         if parent_category is not None:
-            print('es hijo')
+            #print('es hijo')
             parent_category.add_child(name=form.cleaned_data['name'],
                                         description=form.cleaned_data['description'],
                                         parent_category=form.cleaned_data['parent_category']
                                         )
         else:
-            print('es root')
+            #print('es root')
             CategoryModel.add_root(name=form.cleaned_data['name'],
                                     description=form.cleaned_data['description'],
                                     parent_category=None
@@ -39,9 +39,13 @@ class BookCreateView(CreateView):
     template_name = "book/create_book.html"
     success_url = '.'
 class BookListView(ListView):
-    model = BookModel
+    #model = BookModel
     context_object_name = 'list_book'
     template_name = "book/book_list.html"
+
+    def get_queryset(self):
+        kw_catch=self.request.GET.get('kw_search','')
+        return BookModel.objects.search_book_by_categ(kw_catch)
 
 
 

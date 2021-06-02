@@ -1,5 +1,11 @@
 <h1>Esta es la listView de libros</h1>
 
+<p>
+    <form method="GET">{% csrf_token %}
+        <input type="text" name="kw_search" id="kw_search">
+        <button type="submit"> Buscar </button>
+    </form>
+</p>
 
 <ul>
     {% for item in list_book %}
