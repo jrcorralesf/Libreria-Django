@@ -1,13 +1,15 @@
 
 from django.db import models
+from django.db.models.deletion import CASCADE
 from treebeard.mp_tree import MP_Node
 
 from applications.utils.base_model import GeneralModel
 from applications.author.models import AuthorModel
 
-class CategoryModel(GeneralModel, MP_Node):
+class CategoryModel(MP_Node, GeneralModel):
     name = models.CharField(max_length=150)
     description = models.TextField(help_text="Descripción corta", null=True, blank=True)
+    parent_category = models.ForeignKey('self', related_name='related_categ', blank=True, null=True , on_delete=CASCADE)
     class Meta:
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'

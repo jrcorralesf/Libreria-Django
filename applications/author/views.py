@@ -1,4 +1,4 @@
-from django.db.models import query
+
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView
 
@@ -22,5 +22,6 @@ class AuthorCreateView(CreateView):
     fields = ['first_name','last_name','nationality','birthday','photo']
     #field=('__all__')
     template_name = "author/create_auth.html"
+    success_url = '.'
 
 
