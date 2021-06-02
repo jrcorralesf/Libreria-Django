@@ -1,3 +1,15 @@
 <h1>Esta es la listView de autores</h1>
 
-{{list_author}}
+
+<p>
+    <form method="GET">{% csrf_token %}
+        <input type="text" name="search_name" id="search_name">
+        <button type="submit"> Buscar </button>
+    </form>
+</p>
+
+<ul>
+    {% for item in list_author %}
+    <li>{{item}}</li>
+    {% endfor %}
+</ul>

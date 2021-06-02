@@ -3,8 +3,10 @@ from django.db import models
 from django_countries.fields import CountryField
 
 from applications.utils.base_model import GeneralModel
+from .managers import AuthNameManager
 
 class AuthorModel(GeneralModel):
+    objects = AuthNameManager()
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     nationality = CountryField(blank_label='(seleccione un país)')
