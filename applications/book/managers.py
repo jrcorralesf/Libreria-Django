@@ -1,3 +1,4 @@
+
 from django.db import models
 
 class BookManager(models.Manager):
@@ -12,5 +13,9 @@ class BookManager(models.Manager):
 
 
 class CategoryManager(models.Manager):
-    pass
+    
+    def search_categ_by_auth(self,kword):
+        #opción de búsqueda con el related_name del ForeignKey del modelo libro
+        queryset=self.filter(book_categ__authors__first_name__icontains=kword).distinct()
+        return queryset 
     

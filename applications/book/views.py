@@ -29,9 +29,13 @@ class CategoryCreateView(CreateView):
         return redirect(self.success_url)
 
 class CategoryListView(ListView):
-    model = CategoryModel
+    #model = CategoryModel
     context_object_name = 'list_categ'
     template_name = "book/categ_list.html"
+
+    def get_queryset(self):
+        kw_catch=self.request.GET.get('kw_search','')
+        return CategoryModel.objects.search_categ_by_auth(kw_catch)
 
 class BookCreateView(CreateView):
     model = BookModel
