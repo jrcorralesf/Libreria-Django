@@ -1,6 +1,6 @@
 
 from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 from .models import BookModel, CategoryModel
 
@@ -52,4 +52,8 @@ class BookListView(ListView):
         return BookModel.objects.search_book_by_categ(kw_catch)
 
 
+class BookDetailView(DetailView):
+    model = BookModel
+    context_object_name = 'details_book'
+    template_name = "book/book_details.html"
 

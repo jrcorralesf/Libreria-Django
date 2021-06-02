@@ -1,0 +1,14 @@
+<h1>Detalles del libro seleccionado</h1>
+
+
+<p>Titulo: {{details_book.title}}</p>
+<p>Fecha de publicacion: {{details_book.publication_date}}</p>
+<p>{{details_book.category}}</p>
+
+<p>Autores:</p>
+<ul>
+    {% for author in details_book.authors.all %}
+    <li> {{author}} </li>
+    {% endfor %}
+</ul>
+
