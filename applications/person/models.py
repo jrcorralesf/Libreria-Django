@@ -2,12 +2,15 @@ from django.db import models
 
 from applications.utils.base_model import GeneralModel
 from applications.book.models import BookModel
+from .managers import PersonManager, LoanManager
 class PersonModel(GeneralModel):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     nit = models.SmallIntegerField()
     birthday = models.DateField(auto_now=False, auto_now_add=False)
     photo = models.ImageField(upload_to='foto_lectores', null=True, blank=True)
+
+    objects = PersonManager()
     class Meta:
         verbose_name = 'Lector'
         verbose_name_plural = 'Lectores'
@@ -22,6 +25,8 @@ class LoanModel(GeneralModel):
     loan_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     restore_date = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     restored= models.BooleanField()
+
+    objects=LoanManager()
     class Meta:
         verbose_name = 'Préstamo'
         verbose_name_plural = 'Préstamos'
