@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (LoanCreateView,
                     LoanFormView,
+                    MultiLoanFormView,
                     LoanListView,
                     PersonCreateView,
                     PersonListView
@@ -13,4 +14,5 @@ urlpatterns = [
     path('loanlist/', LoanListView.as_view()),
     path('createloan/', LoanCreateView.as_view()),
     path('formloan/', LoanFormView.as_view()),
+    path('multiformloan/', MultiLoanFormView.as_view()),
 ]

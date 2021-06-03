@@ -36,4 +36,4 @@ class BookModel(GeneralModel):
         verbose_name_plural = 'Libros'
 
     def __str__(self):
-        return f'Libro: {self.title} // id: {self.id}'
+        return f'Libro: {self.title} | cantidad restante: {self.stock}'

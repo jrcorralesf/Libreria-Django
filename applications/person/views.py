@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView , FormView
 
 
 from .models import PersonModel, LoanModel
-from .forms import LoanForm
+from .forms import LoanForm, MultiLoanForm
 
 class PersonCreateView(CreateView):
     model = PersonModel
@@ -25,6 +25,33 @@ class LoanCreateView(CreateView):
     fields = ['reader','book','loan_date']
     template_name = "person/create_loan.html"
     success_url = '.'
+class LoanListView(ListView):
+    model = LoanModel
+    context_object_name = 'list_loan'
+    template_name = "person/list_loan.html"
+class MultiLoanFormView(FormView):
+    form_class = MultiLoanForm 
+    template_name = "person/multiform_loan.html"
+    success_url = '.'
+
+    def form_valid(self, form):
+        person_to_lend=form.cleaned_data['reader']
+        selected_books=form.cleaned_data['book_list']
+        loan_objects=[]
+        for single_book in selected_books:
+            print(single_book)
+            instance = LoanModel(
+                reader=person_to_lend,
+                book=single_book,
+                loan_date=datetime.now(), 
+                restored=False,
+            )
+            loan_objects.append(instance)
+        print(loan_objects)
+        for obj in loan_objects:
+            obj.save()
+        #LoanModel.objects.bulk_create(loan_objects) #NO FUNCIONA para modelos que contienen de varias herencias
+        return super(MultiLoanFormView,self).form_valid(form)
 
 class LoanFormView(FormView):
     form_class = LoanForm
@@ -68,8 +95,3 @@ class LoanFormView(FormView):
             return super().form_valid(form)
         else:
             return redirect('/') #cambiar a pagina que muestre que ya tenia el mismo libro prestado
-
-class LoanListView(ListView):
-    model = LoanModel
-    context_object_name = 'list_loan'
-    template_name = "person/list_loan.html"
