@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView , FormView
 
 
@@ -41,21 +42,32 @@ class LoanFormView(FormView):
         )'''
 
         #opción de guardar usando el método save()
-        loan=LoanModel(
+        '''loan=LoanModel(
             reader=form.cleaned_data['reader'],
             book=form.cleaned_data['book'],
             loan_date=datetime.now(), 
             restored=False
         )
-        loan.save()
+        loan.save()'''
 
         #manejo de disminucion de stock en la vista 
         '''loan_book=form.cleaned_data['book'] 
         loan_book.stock -= 1 #loan_book.stock= loan_book.stock -1
         loan_book.save()'''
         
-
-        return super().form_valid(form)
+        #validación de que una persona pueda pedir el mismo libro dos veces
+        obj , created = LoanModel.objects.get_or_create(
+            reader=form.cleaned_data['reader'],
+            book=form.cleaned_data['book'],
+            restored=False,
+            defaults = {
+                'loan_date':datetime.now() #no valida el tiempo, pero si le añade el valor al campo en caso de crear el prestamo
+                }
+        )
+        if created:
+            return super().form_valid(form)
+        else:
+            return redirect('/') #cambiar a pagina que muestre que ya tenia el mismo libro prestado
 
 class LoanListView(ListView):
     model = LoanModel
