@@ -6,7 +6,7 @@ from .managers import PersonManager, LoanManager
 class PersonModel(GeneralModel):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    nit = models.SmallIntegerField()
+    nit = models.PositiveIntegerField()
     birthday = models.DateField(auto_now=False, auto_now_add=False)
     photo = models.ImageField(upload_to='foto_lectores', null=True, blank=True)
 

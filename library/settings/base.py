@@ -23,10 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.postgres',
     #third party apps
     'django_countries',
     'treebeard',
+    
 
     #Own apps
     'applications.person',

@@ -10,7 +10,7 @@ class PersonManager(models.Manager):
 
 class LoanManager(models.Manager):
     
-    #agrupa la búsqueda en un diccionario, seleccionando los libros por separado evitando que se agrupen por id del prestamo
+    #agrupa la búsqueda en un diccionario con values, seleccionando los libros por separado evitando que se agrupen por id del prestamo
     def count_books_loan(self):
         result=self.values('book').annotate(total=Count('book'), title='book__title')
         for element in result:
