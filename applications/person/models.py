@@ -33,3 +33,10 @@ class LoanModel(GeneralModel):
 
     def __str__(self):
         return f'Libro prestado: {self.book.title} | a la persona: {self.reader.first_name} {self.reader.last_name}'
+
+    def save(self, *args, **kwargs):
+        #disminución de stock desde el metodo del modelo 
+        self.book.stock -= 1
+        self.book.save() #usa el metodo sabe del modelo de libro
+        return super(LoanModel, self).save(*args, **kwargs)
+

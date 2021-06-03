@@ -49,12 +49,13 @@ class LoanFormView(FormView):
         )
         loan.save()
 
-        loan_book=form.cleaned_data['book'] 
+        #manejo de disminucion de stock en la vista 
+        '''loan_book=form.cleaned_data['book'] 
         loan_book.stock -= 1 #loan_book.stock= loan_book.stock -1
-        loan_book.save()
+        loan_book.save()'''
         
 
-        return super(LoanFormView, self).form_valid(form)
+        return super().form_valid(form)
 
 class LoanListView(ListView):
     model = LoanModel
