@@ -32,4 +32,4 @@ class LoanModel(GeneralModel):
         verbose_name_plural = 'Préstamos'
 
     def __str__(self):
-        return f'Libro prestado: {self.book.title}'
+        return f'Libro prestado: {self.book.title} | a la persona: {self.reader.first_name} {self.reader.last_name}'

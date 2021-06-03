@@ -1,5 +1,7 @@
+from datetime import datetime
 
 from django.views.generic import ListView, CreateView , FormView
+
 
 from .models import PersonModel, LoanModel
 from .forms import LoanForm
@@ -29,6 +31,28 @@ class LoanFormView(FormView):
     success_url = '.'
 
     def form_valid(self, form):
+        
+        #opción de guardar usando el método create()
+        '''LoanModel.objects.create(
+            reader=form.cleaned_data['reader'],
+            book=form.cleaned_data['book'],
+            loan_date=datetime.now(), 
+            restored=False
+        )'''
+
+        #opción de guardar usando el método save()
+        loan=LoanModel(
+            reader=form.cleaned_data['reader'],
+            book=form.cleaned_data['book'],
+            loan_date=datetime.now(), 
+            restored=False
+        )
+        loan.save()
+
+        loan_book=form.cleaned_data['book'] 
+        loan_book.stock -= 1 #loan_book.stock= loan_book.stock -1
+        loan_book.save()
+        
 
         return super(LoanFormView, self).form_valid(form)
 

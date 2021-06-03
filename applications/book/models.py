@@ -28,6 +28,7 @@ class BookModel(GeneralModel):
     authors = models.ManyToManyField(AuthorModel)
     cover_page = models.ImageField(upload_to='portadas', null=True, blank=True)
     category=models.ForeignKey('book.CategoryModel',related_name='book_categ', on_delete=models.CASCADE, null=True, blank=True)
+    stock = models.PositiveIntegerField(default=0)
 
     objects = BookManager()
     class Meta:
