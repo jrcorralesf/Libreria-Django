@@ -1,7 +1,8 @@
 
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView , FormView
 
 from .models import PersonModel, LoanModel
+from .forms import LoanForm
 
 class PersonCreateView(CreateView):
     model = PersonModel
@@ -21,6 +22,15 @@ class LoanCreateView(CreateView):
     fields = ['reader','book','loan_date']
     template_name = "person/create_loan.html"
     success_url = '.'
+
+class LoanFormView(FormView):
+    form_class = LoanForm
+    template_name = "person/form_loan.html"
+    success_url = '.'
+
+    def form_valid(self, form):
+
+        return super(LoanFormView, self).form_valid(form)
 
 class LoanListView(ListView):
     model = LoanModel
