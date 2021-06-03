@@ -2,6 +2,9 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from treebeard.mp_tree import MP_Node
+from django.db.models.signals import post_save
+
+from PIL import Image
 
 from applications.utils.base_model import GeneralModel
 from applications.author.models import AuthorModel
@@ -37,3 +40,12 @@ class BookModel(GeneralModel):
 
     def __str__(self):
         return f'Libro: {self.title} | cantidad restante: {self.stock}'
+
+
+
+def optimize_image(sender, instance, **kwargs):
+    if instance.cover_page:
+        cover_page= Image.open(instance.cover_page.path)
+        cover_page.save(instance.cover_page.path, quality=20, optimize=True)
+
+post_save.connect(optimize_image,sender=BookModel)

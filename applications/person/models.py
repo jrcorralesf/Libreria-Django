@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import post_delete
 
 from applications.utils.base_model import GeneralModel
 from applications.book.models import BookModel
@@ -40,3 +41,8 @@ class LoanModel(GeneralModel):
         self.book.save() #usa el metodo sabe del modelo de libro
         return super(LoanModel, self).save(*args, **kwargs)
 
+def restore_book(sender, instance, **kwargs):
+    instance.book.stock += 1
+    instance.book.save()
+
+post_delete.connect(restore_book, sender= LoanModel)

@@ -37,19 +37,16 @@ class MultiLoanFormView(FormView):
     def form_valid(self, form):
         person_to_lend=form.cleaned_data['reader']
         selected_books=form.cleaned_data['book_list']
-        loan_objects=[]
+        #loan_objects=[]
         for single_book in selected_books:
-            print(single_book)
             instance = LoanModel(
                 reader=person_to_lend,
                 book=single_book,
                 loan_date=datetime.now(), 
                 restored=False,
             )
-            loan_objects.append(instance)
-        print(loan_objects)
-        for obj in loan_objects:
-            obj.save()
+            instance.save()
+            #loan_objects.append(instance)
         #LoanModel.objects.bulk_create(loan_objects) #NO FUNCIONA para modelos que contienen de varias herencias
         return super(MultiLoanFormView,self).form_valid(form)
 
