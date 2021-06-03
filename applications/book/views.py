@@ -49,7 +49,7 @@ class BookListView(ListView):
 
     def get_queryset(self):
         kw_catch=self.request.GET.get('kw_search','')
-        return BookModel.objects.search_book_by_categ(kw_catch)
+        return BookModel.objects.search_book_by_title_trg(kw_catch)
 
 
 class BookDetailView(DetailView):

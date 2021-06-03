@@ -1,11 +1,24 @@
 
 from django.db import models
 from django.db.models.aggregates import Count
+from django.contrib.postgres.search import TrigramSimilarity
+
 
 class BookManager(models.Manager):
     
-    def search_book_by_name(self,kword):
-        queryset=self.filter(name__icontains=kword )
+    def search_book_by_title(self,kword):
+        queryset=self.filter(title__icontains=kword )
+        return queryset 
+
+    #utilizando la TrigramSimilarity para que el buscador detecte la mejor similitud
+    def search_book_by_title_trg(self,kword):
+        if len(kword)>=3: #el trigram solo funciona si se pasan más de 3 caracteres
+            return self.filter(title__trigram_similar=kword )
+        else:
+            return self.all()[:10] 
+
+    def search_book_by_pubdate(self):
+        queryset=self.filter(publication_date__range=('1800-01-01', '2000-01-01'))
         return queryset 
     
     def search_book_by_categ(self,kword):
