@@ -9,3 +9,4 @@ class GeneralModel(models.Model):
 
     class Meta:
         ordering =['date_of_creation']
+        #abstract = True #no crea este modelo dentro de la base de datos, pues solo se usa para que los demás modelos hereden de esta
