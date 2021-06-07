@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     #third party apps
     'django_countries',
     'treebeard',
-    
+    'rest_framework',
 
     #Own apps
     'applications.person',

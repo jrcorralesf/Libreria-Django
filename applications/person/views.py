@@ -2,10 +2,11 @@ from datetime import datetime
 
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView , FormView
-
+from rest_framework.generics import ListAPIView
 
 from .models import PersonModel, LoanModel
 from .forms import LoanForm, MultiLoanForm
+from .serializers import PersonSerializer
 
 class PersonCreateView(CreateView):
     model = PersonModel
@@ -18,6 +19,13 @@ class PersonListView(ListView):
     model = PersonModel
     context_object_name = 'list_person'
     template_name = "person/list_person.html"
+
+
+class PersonListAPIView(ListAPIView):
+    serializer_class=PersonSerializer
+    def get_queryset(self):
+        return PersonModel.objects.all()
+
 
 class LoanCreateView(CreateView):
     model = LoanModel
