@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import PersonModel, LoanModel
 from .forms import LoanForm, MultiLoanForm
-from .serializers import PersonSerializer
+from .serializers import PersonSerializer, LoanSerializer
 
 class PersonCreateView(CreateView):
     model = PersonModel
@@ -31,6 +31,10 @@ class PersonEditAPIView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return PersonModel.objects.all()
 
+class LoanListAPIView(ListAPIView):
+    serializer_class=LoanSerializer
+    def get_queryset(self):
+        return LoanModel.objects.all()
 class LoanCreateView(CreateView):
     model = LoanModel
     context_object_name = 'create_loan'

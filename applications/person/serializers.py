@@ -11,11 +11,12 @@ class PersonSerializer(serializers.ModelSerializer):
         #depth = 1
 
 
-class LoanSerializer(serializers.ModelSerializer):
+class LoanSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = LoanModel
-        fields = ['reader','book']
-        #extra_kwargs= {
-        #    'reader': {'viewname'}
-        #}
+        fields = ['reader',]
+        #fields = ['reader','book'] #se debe crear la vista y el url de detalle para ver e libro
+        extra_kwargs= {
+                'reader': {'view_name': 'person_app:single_person', 'lookup_field': 'pk'},
+        }
