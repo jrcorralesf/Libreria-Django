@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView , FormView
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import PersonModel, LoanModel
 from .forms import LoanForm, MultiLoanForm
@@ -26,6 +26,10 @@ class PersonListAPIView(ListAPIView):
     def get_queryset(self):
         return PersonModel.objects.all()
 
+class PersonEditAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class=PersonSerializer
+    def get_queryset(self):
+        return PersonModel.objects.all()
 
 class LoanCreateView(CreateView):
     model = LoanModel

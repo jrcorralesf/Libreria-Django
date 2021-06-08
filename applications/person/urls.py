@@ -6,11 +6,13 @@ from .views import (LoanCreateView,
                     LoanListView,
                     PersonCreateView,
                     PersonListView,
-                    PersonListAPIView
+                    PersonListAPIView,
+                    PersonEditAPIView
                     )
 
 urlpatterns = [
     path('api/person/list/', PersonListAPIView.as_view()),
+    path('api/person/edit/<pk>', PersonEditAPIView.as_view()),
     path('personlist/', PersonListView.as_view()),
     path('createperson/', PersonCreateView.as_view()),
     path('loanlist/', LoanListView.as_view()),
