@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import PersonModel, LoanModel
 from .forms import LoanForm, MultiLoanForm
-from .serializers import PersonSerializer, LoanSerializer
+from .serializers import PersonSerializer, LoanSerializer, ShortResultsSetPagination
 
 class PersonCreateView(CreateView):
     model = PersonModel
@@ -23,6 +23,7 @@ class PersonListView(ListView):
 
 class PersonListAPIView(ListAPIView):
     serializer_class=PersonSerializer
+    pagination_class=ShortResultsSetPagination
     def get_queryset(self):
         return PersonModel.objects.all()
 

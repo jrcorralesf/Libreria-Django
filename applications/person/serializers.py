@@ -1,5 +1,6 @@
 
 from rest_framework import serializers
+from rest_framework.pagination import PageNumberPagination
 
 from .models import PersonModel, LoanModel
 
@@ -20,3 +21,16 @@ class LoanSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs= {
                 'reader': {'view_name': 'person_app:single_person', 'lookup_field': 'pk'},
         }
+
+class ShortResultsSetPagination(PageNumberPagination):
+    page_size = 3 #objetos en la pagina
+    page_size_query_param = 'page_size'
+    max_page_size = 100 #objetos a cargar en memoria
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 1000
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
